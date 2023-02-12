@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Amrit&#39;s Corner</title>
-    <link>https://rdseed.in/posts/</link>
-    <description>Recent content in Posts on Amrit&#39;s Corner</description>
+    <title>self on Amrit&#39;s Corner</title>
+    <link>https://rdseed.in/tags/self/</link>
+    <description>Recent content in self on Amrit&#39;s Corner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Feb 2023 13:47:47 +0530</lastBuildDate><atom:link href="https://rdseed.in/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Feb 2023 13:47:47 +0530</lastBuildDate><atom:link href="https://rdseed.in/tags/self/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Realization</title>
       <link>https://rdseed.in/posts/realization/</link>
@@ -15,17 +15,6 @@
       <guid>https://rdseed.in/posts/realization/</guid>
       <description>I have been wondering why I suck at what I do, why I&amp;rsquo;m the least skilled among my skilled peers. After pondering on it for a while, I have come to realise - I simply do not do what I want, instead I chase after what I think I want which will lead me to become more skilled.
 But I realise that now as I see at my past self, who got me to the point where I am today, by doing what I wanted.</description>
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <link>https://rdseed.in/posts/hello-world/</link>
-      <pubDate>Mon, 30 Jan 2023 12:54:51 +0530</pubDate>
-      
-      <guid>https://rdseed.in/posts/hello-world/</guid>
-      <description>Hello to the internet!
-This is just a placeholder post that I made so that my Blog isn&amp;rsquo;t empty. Hope you don&amp;rsquo;t mind!
-Check out my github! Thanks for reading this. See ya&amp;rsquo; around.</description>
     </item>
     
   </channel>
