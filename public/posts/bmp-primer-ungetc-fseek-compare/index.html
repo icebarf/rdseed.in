@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+  Comparing ungetc with fseek for going back in a stream, a few bits on BMP format · Amrit&#39;s Corner
+</title>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Amritpal Singh">
+<meta name="description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Comparing ungetc with fseek for going back in a stream, a few bits on BMP format"/>
+<meta name="twitter:description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?"/>
+
+<meta property="og:title" content="Comparing ungetc with fseek for going back in a stream, a few bits on BMP format" />
+<meta property="og:description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-17T09:07:45+05:30" />
+<meta property="article:modified_time" content="2023-02-17T09:07:45+05:30" />
+
+
+
+
+<link rel="canonical" href="https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/">
+
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.0fa2dc75ed1b76894ac0e062b10a6c4730daa745096fa120114b290ed8a48788.css" integrity="sha256-D6Lcde0bdolKwOBisQpsRzDap0UJb6EgEUspDtikh4g=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.593028e7f7ac55c003b79c230d1cd411bb4ca53b31556c3abb7f027170e646e9.css" integrity="sha256-WTAo5/esVcADt5wjDRzUEbtMpTsxVWw6u38CcXDmRuk=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+<meta name="generator" content="Hugo 0.110.0">
+
+
+
+
+
+  </head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      Amrit&#39;s Corner
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/contact/">Contact</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/">
+              Comparing ungetc with fseek for going back in a stream, a few bits on BMP format
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2023-02-17T09:07:45&#43;05:30">
+                February 17, 2023
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              6-minute read
+            </span>
+          </div>
+          <div class="authors">
+  <i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/authors/amritpal-singh/">Amritpal Singh</a></div>
+
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/programming/">Programming</a>
+      <span class="separator">•</span>
+    <a href="/categories/optimization/">Optimization</a>
+      <span class="separator">•</span>
+    <a href="/categories/file-formats/">File-Formats</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/c/">C</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/file-streams/">file streams</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/bitmap/">bitmap</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/images/">images</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <p>I&rsquo;ve been working on a small hobby project/program of mine. It implements image rotation
+by some angle (in degrees). I chose the bitmap format to write back the image that was
+rotated, the input image is also expected to be a bitmap image.</p>
+<p>Anyhow, while parsing I realised that the bitmap <a href="#bitmap-file-header">file header</a> begins with a 2 byte
+type number that identifies the BMP and DIB header. It is <strong>commonly</strong> <code>0x424d</code> (<code>BM</code> in ascii, <code>0x4d42</code> in little endian,
+how it shall appear on my machine and probably yours as well.)</p>
+<p>Now, the goal is to read the first two bytes and compare those two bytes with <code>0x42</code> and <code>0x4d</code>
+and then parse the header fully if we have the matching subset, else we don&rsquo;t parse.
+During this, we need to return back to the start of the stream so we can collect the file header in one full <code>fread()</code>
+call rather than manually setting our structure&rsquo;s type field<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and then <code>fread()</code> another few bytes
+into our <code>header</code> structure<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<p>Here&rsquo;s an example of both cases (details and error checking have been omitted for brevity)</p>
+<ul>
+<li><code>ungetc()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="">short</span> <span style="">int</span> byte1, byte2;
+</span></span><span style="display:flex;"><span>    byte1 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>    byte2 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span>(byte1 != <span style="">&#39;</span>0x42<span style="">&#39;</span> &amp;&amp; byte2 != <span style="">&#39;</span>0x4d<span style="">&#39;</span>) { <span style="font-style:italic">/* do not parse further */</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* what we care about */</span>
+</span></span><span style="display:flex;"><span>    ungetc(byte2, bitmap);
+</span></span><span style="display:flex;"><span>    ungetc(byte1, bitmap);
+</span></span></code></pre></div><ul>
+<li><code>fseek()</code> to stream start</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="">short</span> <span style="">int</span> byte1, byte2;
+</span></span><span style="display:flex;"><span>    byte1 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>    byte2 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span>(byte1 != <span style="">&#39;</span>0x42<span style="">&#39;</span> &amp;&amp; byte2 != <span style="">&#39;</span>0x4d<span style="">&#39;</span>) { <span style="font-style:italic">/* do not parse further */</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* what we care about */</span>
+</span></span><span style="display:flex;"><span>    fseek(bitmap, 0, SEEK_SET);
+</span></span></code></pre></div><p>Now, the question that arises, which is faster? Well the obvious thing is to benchmark this, so I
+rolled up my little <code>get_time_nsec()</code><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> function and measured the time it took for both cases and calculated the delta.
+I ran the benchmark 10 times and then took the average, the code was compiled with these compiler options.<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></p>
+<p>Before I reveal the results, make a guess. Which is faster? I asked the same question to two of my friends and both agreed
+that it should be <code>fseek()</code> which is faster. For the sake of keeping this article short, I shall not discuss the logic
+behind their arguments.</p>
+<h2 id="results">
+  Results
+  <a class="heading-link" href="#results">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><code>ungetc()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>ungetc_avg = (791+1793+1002+1012+1393+1002+1303+1583+1022+972)/10
+</span></span><span style="display:flex;"><span>ungetc_avg
+</span></span><span style="display:flex;"><span>1187.3
+</span></span></code></pre></div><ul>
+<li><code>fseek()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fseek_avg = (3396+2936+3326+3356+1834+3576+2855+1783+3056+2285)/10
+</span></span><span style="display:flex;"><span>fseek_avg
+</span></span><span style="display:flex;"><span>2840.3
+</span></span></code></pre></div><blockquote>
+<p>The units for these numbers is <code>ns</code> or <code>nanosecond</code>.</p>
+</blockquote>
+<p>This indicates that in this particular case, <code>ungetc()</code> is about 58.19% faster<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<h2 id="a-better-way-to-do-things">
+  A better way to do things
+  <a class="heading-link" href="#a-better-way-to-do-things">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<h3 id="bitmap-file-header">
+  Bitmap File header
+  <a class="heading-link" href="#bitmap-file-header">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">struct</span> __attribute((packed)) BitmapFileHeader
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    u16 bf_type;
+</span></span><span style="display:flex;"><span>    u32 bf_fsize;
+</span></span><span style="display:flex;"><span>    u32 bf_reserved;
+</span></span><span style="display:flex;"><span>    u32 bf_pixels_offset;
+</span></span><span style="display:flex;"><span>} <span style="font-style:italic">// 14-bytes
+</span></span></span></code></pre></div><h3 id="device-independent-bitmap-bitmapinfoheader">
+  Device-Independent Bitmap (BITMAPINFOHEADER)
+  <a class="heading-link" href="#device-independent-bitmap-bitmapinfoheader">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">struct</span> __attribute((packed)) BitmapInfoHeader_DIB
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    u32 bi_size;
+</span></span><span style="display:flex;"><span>    i32 bi_width;
+</span></span><span style="display:flex;"><span>    i32 bi_height;
+</span></span><span style="display:flex;"><span>    u16 bi_panes;
+</span></span><span style="display:flex;"><span>    u16 bi_bitcount;
+</span></span><span style="display:flex;"><span>    u32 bi_compression;
+</span></span><span style="display:flex;"><span>    u32 bi_sizeimage;
+</span></span><span style="display:flex;"><span>    u32 bi_xpixels_permeter;
+</span></span><span style="display:flex;"><span>    u32 bi_ypixels_permeter;
+</span></span><span style="display:flex;"><span>    u32 bi_clrused;
+</span></span><span style="display:flex;"><span>    u32 bi_clrimportant;
+</span></span><span style="display:flex;"><span>} <span style="font-style:italic">// 54-bytes
+</span></span></span></code></pre></div><p>The previously described niche case is unrealistic and should not be used in real code.
+Since we know that the bitmap file header i.e the the first 14-bytes are all the same, we could perform a read
+of 14-bytes and fill out the file header, and then perform the check on <code>bf_type</code> and then parse the rest of DIB (Device-Independent Bitmap) header.</p>
+<p>But there is another problem here, the DIB header has many versions with variying sizes, eg.
+<code>BITMAPCOREHEADER</code> (the oldest) is 12 bytes but <code>BITMAPINFOHEADER</code> (most common) is 54 bytes, and <code>OS22XBITMAPHEADER</code> adds
+additional 24 bytes to the <code>BITMAPINFOHEADER</code>.</p>
+<p>So we know the kind of mess we&rsquo;ve got ourselves into. The subset that I have chosen to implement in my program is <code>BM</code> for file header type
+and <code>BITMAPINFOHEADER</code> structure for the in-memory DIB. The goal is to only allow <code>BITMAPINFOHEADER</code> to be parsed (and optionally support others
+in the future).</p>
+<p>The initial 12-bytes of all DIB headers is the same (which is actually the <code>BITMAPCOREHEADER</code>), thus it is reasonable to perform another read
+of 12-bytes and then conditionally parse the rest of the header based (similar to how it was done earlier<sup id="fnref1:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>) on <code>bi_size</code> field of the header.
+This way we minimize fiddling with the stream and be done in about 3 or fewer reads.
+Minimizing the number of reads is important so what we should ideally do is to have a packed struct with the file header and DIB header combined
+and read 14 + 12 = 26 bytes in one read, perform the checks on <code>bf_type</code> and <code>bi_size</code> and report any errors if unsuccessful otherwise continue
+parsing the rest of <code>BITMAPINFOHEADER</code><sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>. Ofcourse, this advice is limited to the subset that was defined earlier. You may want to do things differently.</p>
+<h2 id="too-long-didnt-read">
+  Too Long didn&rsquo;t read
+  <a class="heading-link" href="#too-long-didnt-read">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>If you&rsquo;re parsing bitmap images and want to only support the most common sub-format in BMP format, then</p>
+<ul>
+<li>Perform a read of 26 bytes, check for file type and dib header size.<sup id="fnref1:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></li>
+<li>parse further eg. the pixel array or the color profiles or the extra bit masks when there is specific case of compression of pixel data.</li>
+<li>Be done with it.</li>
+</ul>
+<p><em>and remember kids!</em> Always minimize the number of reads or poking with the file stream.</p>
+<h2 id="footnotes">
+  Footnotes
+  <a class="heading-link" href="#footnotes">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><code>header-&gt;bf_type = (byte2 &lt;&lt; 8) | byte1</code> or  if you read into a <code>short int</code> then simply <code>header-&gt;bf_type = id</code> perhaps&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Let us define an exemplary header</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">struct</span> __attribute((packed)) BITMAPHEADER {
+</span></span><span style="display:flex;"><span>    u16 bf_type;
+</span></span><span style="display:flex;"><span>    u32 bf_fsize;
+</span></span><span style="display:flex;"><span>    u32 bf_reserved;
+</span></span><span style="display:flex;"><span>    u32 bf_pixels_offset;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* rest of the fields in the header */</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Since we&rsquo;ve manually set bf_type field already, we need to read into the structure from <code>bf_fsize</code> field.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>fread (&amp;header-&gt;bf_fsize, 1, <span style="font-weight:bold">sizeof</span>(header) - <span style="font-weight:bold">sizeof</span>(header-&gt;bf_type), bitmap);
+</span></span></code></pre></div>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+<li id="fn:3">
+<p>Benchmark</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">long</span>
+</span></span><span style="display:flex;"><span>get_time_nsec (<span style="">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="">#ifndef ICE_DONT_BENCHMARK_CODE
+</span></span></span><span style="display:flex;"><span><span style=""></span><span style="font-weight:bold">struct</span> timespec time;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> (timespec_get (&amp;time, TIME_UTC) == 0)
+</span></span><span style="display:flex;"><span>  fprintf (stdout,<span style="font-style:italic">&#34;Error: Filling timespec structure failed with timespec_get()</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">return</span> time.tv_nsec;
+</span></span><span style="display:flex;"><span><span style="">#endif
+</span></span></span><span style="display:flex;"><span><span style=""></span>}
+</span></span></code></pre></div>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+<li id="fn:4">
+<p><code>-Wall -Wextra -Werror -O3</code>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5">
+<p>((fseek_avg - ungetc_avg) / fseek_avg) * 100 = 58.19807766785199%&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6">
+<p>Parsing the bitmap header in two reads. Error checking and some details have been omitted for the sake of brevity.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">struct</span> __attribute ((packed)) BITMAP_HEADER
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    u16 bf_id;
+</span></span><span style="display:flex;"><span>    u32 bf_fsize;
+</span></span><span style="display:flex;"><span>    u32 bf_reserved;
+</span></span><span style="display:flex;"><span>    u32 bf_pixels_offset;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    u32 bi_size;
+</span></span><span style="display:flex;"><span>    i32 bi_width;
+</span></span><span style="display:flex;"><span>    i32 bi_height;
+</span></span><span style="display:flex;"><span>    u16 bi_panes;
+</span></span><span style="display:flex;"><span>    u16 bi_bitcount;
+</span></span><span style="display:flex;"><span>    u32 bi_compression;
+</span></span><span style="display:flex;"><span>    u32 bi_sizeimage;
+</span></span><span style="display:flex;"><span>    u32 bi_xpixels_permeter;
+</span></span><span style="display:flex;"><span>    u32 bi_ypixels_permeter;
+</span></span><span style="display:flex;"><span>    u32 bi_clrused;
+</span></span><span style="display:flex;"><span>    u32 bi_clrimportant;
+</span></span><span style="display:flex;"><span>}; <span style="font-style:italic">// 54-bytes
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">struct</span> BITMAP_HEADER*
+</span></span><span style="display:flex;"><span>read(FILE* bitmap)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">struct</span> BITMAP_HEADER *metadata = calloc(1, <span style="font-weight:bold">sizeof</span>(*metadata));
+</span></span><span style="display:flex;"><span>    fread(data, 1, 26, bitmap);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span>(metadata-&gt;bf_id != 0x4d42) <span style="font-style:italic">// little-endian machine, use switch if you wish to support multiple formats or something
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>        ...             <span style="font-style:italic">// or perhaps do some macro magic, dealer&#39;s choice
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">if</span>(metadata-&gt;bi_size != 40)
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> metadata;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></li>
+</ol>
+</div>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2023
+     Amritpal Singh 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
