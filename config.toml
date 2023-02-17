@@ -56,18 +56,17 @@ pygmentscodefencesguesssyntax = true
   icon = "fa fa-twitter fa-2x"
   weight = 1
   url = "https://twitter.com/icebarf2/"
-[[params.social]]
-  name = "Email"
-  icon = "fa fa-email fa-2x"
-  weight = 1
-  url = "mailto:sysgrammer@protonmail.com"
 
 # Menu links
+[[menu.main]]
+  name = "About"
+  weight = 1
+  url = "about/"
 [[menu.main]]
   name = "Blog"
   weight = 2
   url  = "posts/"
 [[menu.main]]
-  name = "About"
-  weight = 1
-  url = "about/"
+  name = "Contact"
+  weight = 3
+  url  = "contact/"
