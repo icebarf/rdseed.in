@@ -15,13 +15,13 @@ pygmentscodefencesguesssyntax = true
 [params]
   author = "Amritpal Singh"
   info = "Systems programmer and wannabe-wizard"
-  description = "Amrit's corner on the internet"
+  description = "Amrit's corner on the internet. Blog about computers, life, photography."
   keywords = "blog,developer,personal"
-  #avatarurl = "images/avatar.jpg"
+  avatarurl = "images/khanda.png"
   #gravatar = "john.doe@example.com"
 
-  favicon_32 = "/image/favicon-32x32.png"
-  favicon_16 = "/image/favicon-16x16.png"
+  # favicon_32 = "/image/favicon-32x32.png"
+  # favicon_16 = "/image/favicon-16x16.png"
 
   since = 2023
 
@@ -54,8 +54,13 @@ pygmentscodefencesguesssyntax = true
 [[params.social]]
   name = "Twitter"
   icon = "fa fa-twitter fa-2x"
-  weight = 3
+  weight = 1
   url = "https://twitter.com/icebarf2/"
+[[params.social]]
+  name = "Email"
+  icon = "fa fa-email fa-2x"
+  weight = 1
+  url = "mailto:sysgrammer@protonmail.com"
 
 # Menu links
 [[menu.main]]
