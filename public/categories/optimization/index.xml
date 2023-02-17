@@ -8,13 +8,12 @@
     <language>en</language>
     <lastBuildDate>Fri, 17 Feb 2023 09:07:45 +0530</lastBuildDate><atom:link href="https://rdseed.in/categories/optimization/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Comparing ungetc with fseek for going back in a stream, a few bits on BMP format</title>
+      <title>Navigating Streams: Comparing ungetc(), fseek(), and rewind() for BMP Images with Insights into BMP Image Structure</title>
       <link>https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/</link>
       <pubDate>Fri, 17 Feb 2023 09:07:45 +0530</pubDate>
       
       <guid>https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/</guid>
-      <description>I&amp;rsquo;ve been working on a small hobby project/program of mine. It implements image rotation by some angle (in degrees). I chose the bitmap format to write back the image that was rotated, the input image is also expected to be a bitmap image.
-Anyhow, while parsing I realised that the bitmap file header begins with a 2 byte type number that identifies the BMP and DIB header. It is commonly 0x424d (BM in ascii, 0x4d42 in little endian, how it shall appear on my machine and probably yours as well.</description>
+      <description>Index Link to heading The case of a few bytes Results Why is this happening? A better way to do things Bitmap File header Device-Independent Bitmap Too Long didn&amp;rsquo;t read Footnotes The case of a few bytes Link to heading I&amp;rsquo;ve been working on a small hobby project/program of mine. It implements image rotation by some angle (in degrees). I chose the bitmap format to write back the image that was rotated, the input image is also expected to be a bitmap image.</description>
     </item>
     
   </channel>

@@ -23,9 +23,6 @@
     <loc>https://rdseed.in/categories/</loc>
     <lastmod>2023-02-17T09:07:45+05:30</lastmod>
   </url><url>
-    <loc>https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/</loc>
-    <lastmod>2023-02-17T09:07:45+05:30</lastmod>
-  </url><url>
     <loc>https://rdseed.in/tags/file-streams/</loc>
     <lastmod>2023-02-17T09:07:45+05:30</lastmod>
   </url><url>
@@ -33,6 +30,9 @@
     <lastmod>2023-02-17T09:07:45+05:30</lastmod>
   </url><url>
     <loc>https://rdseed.in/tags/images/</loc>
+    <lastmod>2023-02-17T09:07:45+05:30</lastmod>
+  </url><url>
+    <loc>https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/</loc>
     <lastmod>2023-02-17T09:07:45+05:30</lastmod>
   </url><url>
     <loc>https://rdseed.in/categories/optimization/</loc>

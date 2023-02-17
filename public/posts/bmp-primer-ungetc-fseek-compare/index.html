@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>
-  Comparing ungetc with fseek for going back in a stream, a few bits on BMP format · Amrit&#39;s Corner
+  Navigating Streams: Comparing ungetc(), fseek(), and rewind() for BMP Images with Insights into BMP Image Structure · Amrit&#39;s Corner
 </title>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +12,15 @@
 
 
 <meta name="author" content="Amritpal Singh">
-<meta name="description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?">
+<meta name="description" content="This article provides a detailed analysis of the advantages and limitations of using ungetc(), fseek(), and rewind() to navigate BMP image streams after reading a few bytes. It also includes information about the BMP image structure.">
 <meta name="keywords" content="blog,developer,personal">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Comparing ungetc with fseek for going back in a stream, a few bits on BMP format"/>
-<meta name="twitter:description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?"/>
+<meta name="twitter:title" content="Navigating Streams: Comparing ungetc(), fseek(), and rewind() for BMP Images with Insights into BMP Image Structure"/>
+<meta name="twitter:description" content="This article provides a detailed analysis of the advantages and limitations of using ungetc(), fseek(), and rewind() to navigate BMP image streams after reading a few bytes. It also includes information about the BMP image structure."/>
 
-<meta property="og:title" content="Comparing ungetc with fseek for going back in a stream, a few bits on BMP format" />
-<meta property="og:description" content="If you wish to set the file stream indicator back a few bytes, should use ungetc() or fseek() ?" />
+<meta property="og:title" content="Navigating Streams: Comparing ungetc(), fseek(), and rewind() for BMP Images with Insights into BMP Image Structure" />
+<meta property="og:description" content="This article provides a detailed analysis of the advantages and limitations of using ungetc(), fseek(), and rewind() to navigate BMP image streams after reading a few bytes. It also includes information about the BMP image structure." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-17T09:07:45+05:30" />
@@ -133,7 +133,7 @@
         <div class="post-title">
           <h1 class="title">
             <a class="title-link" href="https://rdseed.in/posts/bmp-primer-ungetc-fseek-compare/">
-              Comparing ungetc with fseek for going back in a stream, a few bits on BMP format
+              Navigating Streams: Comparing ungetc(), fseek(), and rewind() for BMP Images with Insights into BMP Image Structure
             </a>
           </h1>
         </div>
@@ -147,7 +147,7 @@
             </span>
             <span class="reading-time">
               <i class="fa fa-clock-o" aria-hidden="true"></i>
-              6-minute read
+              10-minute read
             </span>
           </div>
           <div class="authors">
@@ -185,7 +185,31 @@
 
       <div class="post-content">
         
-        <p>I&rsquo;ve been working on a small hobby project/program of mine. It implements image rotation
+        <h2 id="index">
+  Index
+  <a class="heading-link" href="#index">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><a href="#the-case-of-a-few-bytes">The case of a few bytes</a></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#why-is-this-happening">Why is this happening?</a></li>
+<li><a href="#a-better-way-to-do-things">A better way to do things</a></li>
+<li><a href="#bitmap-file-header">Bitmap File header</a></li>
+<li><a href="#device-independent-bitmap-bitmapinfoheader">Device-Independent Bitmap</a></li>
+<li><a href="#too-long-didnt-read">Too Long didn&rsquo;t read</a></li>
+<li><a href="#footnotes">Footnotes</a></li>
+</ul>
+<h2 id="the-case-of-a-few-bytes">
+  The case of a few bytes
+  <a class="heading-link" href="#the-case-of-a-few-bytes">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>I&rsquo;ve been working on a small hobby project/program of mine. It implements image rotation
 by some angle (in degrees). I chose the bitmap format to write back the image that was
 rotated, the input image is also expected to be a bitmap image.</p>
 <p>Anyhow, while parsing I realised that the bitmap <a href="#bitmap-file-header">file header</a> begins with a 2 byte
@@ -196,7 +220,7 @@ and then parse the header fully if we have the matching subset, else we don&rsqu
 During this, we need to return back to the start of the stream so we can collect the file header in one full <code>fread()</code>
 call rather than manually setting our structure&rsquo;s type field<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> and then <code>fread()</code> another few bytes
 into our <code>header</code> structure<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
-<p>Here&rsquo;s an example of both cases (details and error checking have been omitted for brevity)</p>
+<p>Here are some examples of the three cases. A few details and error checking have been omitted for brevity.</p>
 <ul>
 <li><code>ungetc()</code></li>
 </ul>
@@ -208,8 +232,17 @@ into our <code>header</code> structure<sup id="fnref:2"><a href="#fn:2" class="f
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* what we care about */</span>
 </span></span><span style="display:flex;"><span>    ungetc(byte2, bitmap);
-</span></span><span style="display:flex;"><span>    ungetc(byte1, bitmap);
-</span></span></code></pre></div><ul>
+</span></span><span style="display:flex;"><span>    ungetc(byte1, bitmap); <span style="font-style:italic">// probably check for eof because only 1 push back is guaranteed
+</span></span></span></code></pre></div><p>Do note that with this approach only one push back is guaranteed as specified in the standard. Although, the
+<a href="https://en.cppreference.com/w/c/io/ungetc#Notes">cppreference&rsquo;s</a> notes section indicates that on popular operating systems
+the pushback buffer is large enough to support our operations.</p>
+<blockquote>
+<p>The size of the pushback buffer varies in practice from 4k (Linux, MacOS) to as little as 4 (Solaris) or the guaranteed minimum 1 (HPUX, AIX).</p>
+</blockquote>
+<blockquote>
+<p>The apparent size of the pushback buffer may be larger if the character that is pushed back equals the character existing at that location in the external character sequence (the implementation may simply decrement the read file position indicator and avoid maintaining a pushback buffer).</p>
+</blockquote>
+<ul>
 <li><code>fseek()</code> to stream start</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="">short</span> <span style="">int</span> byte1, byte2;
@@ -220,12 +253,23 @@ into our <code>header</code> structure<sup id="fnref:2"><a href="#fn:2" class="f
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* what we care about */</span>
 </span></span><span style="display:flex;"><span>    fseek(bitmap, 0, SEEK_SET);
+</span></span></code></pre></div><ul>
+<li><code>rewind()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="">short</span> <span style="">int</span> byte1, byte2;
+</span></span><span style="display:flex;"><span>    byte1 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>    byte2 = fgetc(bitmap);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span>(byte1 != <span style="">&#39;</span>0x42<span style="">&#39;</span> &amp;&amp; byte2 != <span style="">&#39;</span>0x4d<span style="">&#39;</span>) { <span style="font-style:italic">/* do not parse further */</span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* what we care about */</span>
+</span></span><span style="display:flex;"><span>    rewind(bitmap)
 </span></span></code></pre></div><p>Now, the question that arises, which is faster? Well the obvious thing is to benchmark this, so I
 rolled up my little <code>get_time_nsec()</code><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> function and measured the time it took for both cases and calculated the delta.
 I ran the benchmark 10 times and then took the average, the code was compiled with these compiler options.<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></p>
 <p>Before I reveal the results, make a guess. Which is faster? I asked the same question to two of my friends and both agreed
-that it should be <code>fseek()</code> which is faster. For the sake of keeping this article short, I shall not discuss the logic
-behind their arguments.</p>
+that it should be <code>fseek()</code> which is faster (at the time, the choice for <code>rewind()</code> was not presented to them).
+For the sake of keeping this article short, I shall not discuss the logic behind their arguments.</p>
 <h2 id="results">
   Results
   <a class="heading-link" href="#results">
@@ -245,10 +289,150 @@ behind their arguments.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fseek_avg = (3396+2936+3326+3356+1834+3576+2855+1783+3056+2285)/10
 </span></span><span style="display:flex;"><span>fseek_avg
 </span></span><span style="display:flex;"><span>2840.3
+</span></span></code></pre></div><ul>
+<li><code>rewind()</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>rewind_avg = (4749+2374+5657+5727+4819+4889+6216+6146+5657+6984)/10
+</span></span><span style="display:flex;"><span>rewind_avg
+</span></span><span style="display:flex;"><span>5321.8
 </span></span></code></pre></div><blockquote>
 <p>The units for these numbers is <code>ns</code> or <code>nanosecond</code>.</p>
 </blockquote>
-<p>This indicates that in this particular case, <code>ungetc()</code> is about 58.19% faster<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<p>This indicates that in this particular case, <code>ungetc()</code> is about 58.19% faster than <code>fseek()</code><sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> and 77.68% faster than <code>rewind()</code><sup id="fnref1:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<p>From the presented options, it seems that going a little off-standard is worth this micro-optimization but I do not recommend it, as there
+is better alternative to doing the above shenanigans. Although, this benchmark does have its issues, e.g includes time taken for
+function calls but it does showcase a pretty large difference for a specific case.</p>
+<h2 id="why-is-this-happening">
+  Why is this happening?
+  <a class="heading-link" href="#why-is-this-happening">
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><code>fseek()</code></li>
+</ul>
+<p>Let us take a look at glib source for <code>fseek()</code>. Upon inspection, it is defined as follows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span>
+</span></span><span style="display:flex;"><span>fseek (FILE *fp, <span style="">long</span> <span style="">int</span> offset, <span style="">int</span> whence)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result;
+</span></span><span style="display:flex;"><span>  CHECK_FILE (fp, -1);
+</span></span><span style="display:flex;"><span>  _IO_acquire_lock (fp);
+</span></span><span style="display:flex;"><span>  result = _IO_fseek (fp, offset, whence);
+</span></span><span style="display:flex;"><span>  _IO_release_lock (fp);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Looking for <code>_IO_fseek()</code> results in finding out that it is a macro that actually calls <code>_IO_seekoff_unlocked()</code> that further calls <code>_IO_seekoff()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#define _IO_fseek(__fp, __offset, __whence) \
+</span></span></span><span style="display:flex;"><span><span style="">  (_IO_seekoff_unlocked (__fp, __offset, __whence, _IOS_INPUT|_IOS_OUTPUT) \
+</span></span></span><span style="display:flex;"><span><span style="">   == _IO_pos_BAD ? EOF : 0)
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">off64_t</span>
+</span></span><span style="display:flex;"><span>_IO_seekoff_unlocked (FILE *fp, <span style="">off64_t</span> offset, <span style="">int</span> dir, <span style="">int</span> mode)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (dir != _IO_seek_cur &amp;&amp; dir != _IO_seek_set &amp;&amp; dir != _IO_seek_end)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      __set_errno (EINVAL);
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">return</span> EOF;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="font-style:italic">/* If we have a backup buffer, get rid of it, since the __seekoff
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">     callback may not know to do the right thing about it.
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">     This may be over-kill, but it&#39;ll do for now. TODO */</span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (mode != 0 &amp;&amp; ((_IO_fwide (fp, 0) &lt; 0 &amp;&amp; _IO_have_backup (fp))
+</span></span><span style="display:flex;"><span>		    || (_IO_fwide (fp, 0) &gt; 0 &amp;&amp; _IO_have_wbackup (fp))))
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> (dir == _IO_seek_cur &amp;&amp; _IO_in_backup (fp))
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>	  <span style="font-weight:bold">if</span> (_IO_vtable_offset (fp) != 0 || fp-&gt;_mode &lt;= 0)
+</span></span><span style="display:flex;"><span>	    offset -= fp-&gt;_IO_read_end - fp-&gt;_IO_read_ptr;
+</span></span><span style="display:flex;"><span>	  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>	    abort ();
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> (_IO_fwide (fp, 0) &lt; 0)
+</span></span><span style="display:flex;"><span>	_IO_free_backup_area (fp);
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>	_IO_free_wbackup_area (fp);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> _IO_SEEKOFF (fp, offset, dir, mode);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now, it seems that <code>fseek()</code> involves acquiring a look, calculating a bunch of stuff regarding the <code>backup buffer</code> it seems? And then
+finally calling <code>_IO_SEEKOFF()</code>. This function seems to be invloving a lot of calls to other code in order to go back to the beginning
+of the stream. This is a possible reason as to why it might be slow.</p>
+<blockquote>
+<p>Thanks to cortexauth#6190 for pointing me here.</p>
+</blockquote>
+<ul>
+<li><code>rewind()</code>
+After going through the source similarly at glibc, it is following the same pattern as <code>fseek()</code>.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">void</span>
+</span></span><span style="display:flex;"><span>rewind (FILE *fp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  CHECK_FILE (fp, );
+</span></span><span style="display:flex;"><span>  _IO_acquire_lock (fp);
+</span></span><span style="display:flex;"><span>  _IO_rewind (fp);
+</span></span><span style="display:flex;"><span>  _IO_clearerr (fp);
+</span></span><span style="display:flex;"><span>  _IO_release_lock (fp);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#define _IO_rewind(FILE) \
+</span></span></span><span style="display:flex;"><span><span style="">  (void) _IO_seekoff_unlocked (FILE, 0, 0, _IOS_INPUT|_IOS_OUTPUT)
+</span></span></span></code></pre></div><p>Where <code>rewind()</code> is also calling <code>_IO_seekoff_unlocked()</code> but with the offset and the stream position indicators being <code>0</code> and <code>0</code> respectively.
+However, <code>rewind()</code> was actually slower than <code>fseek()</code> and that might be explained by what <code>_IO_clearerr()</code> might be doing which causes it to be
+additionally slower than <code>fseek()</code>. But wait! <code>_IO_clearerr()</code> is actually a macro that modifies the <code>FILE</code> structure. It seems to be masking off
+the error bits.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#define _IO_clearerr(FP) ((FP)-&gt;_flags &amp;= ~(_IO_ERR_SEEN|_IO_EOF_SEEN))
+</span></span></span></code></pre></div><p>So what is the actual reason behind this slow down with <code>rewind()</code>? It could likely be the backup buffer mentioned in the source code, which is
+being free&rsquo;d. Take note that in the <code>ungetc()</code> example written above, there was a note from cppreference which indicated a pushback buffer
+for the stream which might actually be coming into play with <code>_IO_seekoff_unlocked()</code>&rsquo;s backup buffer here. It could likely be the same buffer(verification needed).
+But then it should have been in effect when using <code>fseek()</code> as well. <code>rewind()</code> and <code>fseek()</code> should perform similar if not equally here in my opinion.</p>
+<blockquote>
+<p>Perhaps a more experienced reader could email me about this if they know more.</p>
+</blockquote>
+<ul>
+<li><code>ungetc()</code></li>
+</ul>
+<p>Now, for our fastest contender <code>ungetc()</code> seems to be having a rather simple implementation. There is some minimal error checking and for
+&ldquo;putting back the character on the stream&rdquo; it is just performing checks if the previous character in stream is the same character passed
+as argument and then just decrements the <code>FILE</code> internal read counter/stream indicator.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span>
+</span></span><span style="display:flex;"><span>ungetc (<span style="">int</span> c, FILE *fp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result;
+</span></span><span style="display:flex;"><span>  CHECK_FILE (fp, EOF);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (c == EOF)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> EOF;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (!_IO_need_lock (fp))
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> _IO_sputbackc (fp, (<span style="">unsigned</span> <span style="">char</span>) c);
+</span></span><span style="display:flex;"><span>  _IO_acquire_lock (fp);
+</span></span><span style="display:flex;"><span>  result = _IO_sputbackc (fp, (<span style="">unsigned</span> <span style="">char</span>) c);
+</span></span><span style="display:flex;"><span>  _IO_release_lock (fp);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span>
+</span></span><span style="display:flex;"><span>_IO_sputbackc (FILE *fp, <span style="">int</span> c)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (fp-&gt;_IO_read_ptr &gt; fp-&gt;_IO_read_base
+</span></span><span style="display:flex;"><span>      &amp;&amp; (<span style="">unsigned</span> <span style="">char</span>)fp-&gt;_IO_read_ptr[-1] == (<span style="">unsigned</span> <span style="">char</span>)c)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      fp-&gt;_IO_read_ptr--;
+</span></span><span style="display:flex;"><span>      result = (<span style="">unsigned</span> <span style="">char</span>) c;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    result = _IO_PBACKFAIL (fp, c);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> (result != EOF)
+</span></span><span style="display:flex;"><span>    fp-&gt;_flags &amp;= ~_IO_EOF_SEEN;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>Above 8 code snippets (indicated by different code blocks) are directly taken from glibc source, their licensing applies these snippets respectively.</p>
+</blockquote>
+<p>And there you have it! We finally have <em>some grasp</em> over why <code>rewind()</code> and <code>fseek()</code> are slower than <code>ungetc()</code> in our specific case.</p>
 <h2 id="a-better-way-to-do-things">
   A better way to do things
   <a class="heading-link" href="#a-better-way-to-do-things">
@@ -313,6 +497,12 @@ parsing the rest of <code>BITMAPINFOHEADER</code><sup id="fnref:6"><a href="#fn:
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
+<ul>
+<li><code>ungetc()</code> is about 58.19% faster than <code>fseek()</code><sup id="fnref2:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> and 77.68% faster than <code>rewind()</code><sup id="fnref3:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</li>
+<li><code>ungetc()</code> only modifies the internal structure of <code>FILE</code> and performs some checks.</li>
+<li><code>fseek()</code> and <code>rewind()</code> are a lot more involved, calling many internal functions
+for acquiring locks, performing checks on pointers, handling a buffer etc.</li>
+</ul>
 <p>If you&rsquo;re parsing bitmap images and want to only support the most common sub-format in BMP format, then</p>
 <ul>
 <li>Perform a read of 26 bytes, check for file type and dib header size.<sup id="fnref1:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></li>
@@ -364,7 +554,8 @@ parsing the rest of <code>BITMAPINFOHEADER</code><sup id="fnref:6"><a href="#fn:
 <p><code>-Wall -Wextra -Werror -O3</code>&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5">
-<p>((fseek_avg - ungetc_avg) / fseek_avg) * 100 = 58.19807766785199%&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p><code>((original_value - new_value) / original_value) * 100 = X%</code>.
+Increaese/Decrease depends on whether the <code>original_value</code> was larger/smaller respectively.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref2:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref3:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:6">
 <p>Parsing the bitmap header in two reads. Error checking and some details have been omitted for the sake of brevity.</p>
