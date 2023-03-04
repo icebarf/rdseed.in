@@ -22,8 +22,8 @@
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://rdseed.in/portfolio/</guid>
-      <description>Perfmode Link to heading Perfmode is a fan/thermals control and keyboard LED backlight management utility. It is written in C, and works by writing to files exposed by the linux kernel module asus-nb-wmi. It&amp;rsquo;s being maintained since 2021.
-libx86 Link to heading libx86 is a small library in x86_64 assembly that I wrote during my read of Low Level Programming by Igor Zhirkov. It is a simple include file which provides minimal yet useful functionality while working with assembly.</description>
+      <description>dy-chip8-reborn Link to heading This is an interpreter/emulator for the Chip8 virtual machine written in the C programming language. It works with the development library SDL2 to provide graphics and audio support. This project has been archived in favor of my in-development based-chip8-pp project which uses C++.
+Forth86 Link to heading Forth86 is an interpreter for the FORTH Programming Language written in x86_64 assembly language. It depends on my libx86 project which provides a base for it.</description>
     </item>
     
     <item>
