@@ -6,4 +6,4 @@ aliases = ["contacting", "contact-me"]
 author = "Amritpal Singh"
 +++
 
-You can email me at [sysgrammer@protonmail.com](mailto:sysgrammer@protonmail.com)
+You can email me at [sysgrammer@protonmail.com](mailto:sysgrammer@protonmail.com).

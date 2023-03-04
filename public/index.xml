@@ -6,14 +6,33 @@
     <description>Recent content on Amrit&#39;s Corner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Feb 2023 13:47:47 +0530</lastBuildDate><atom:link href="https://rdseed.in/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://rdseed.in/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Notes</title>
+      <link>https://rdseed.in/notes/notes/</link>
+      <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rdseed.in/notes/notes/</guid>
+      <description> PPM File Format for images </description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://rdseed.in/portfolio/</link>
+      <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://rdseed.in/portfolio/</guid>
+      <description>Perfmode Link to heading Perfmode is a fan/thermals control and keyboard LED backlight management utility. It is written in C, and works by writing to files exposed by the linux kernel module asus-nb-wmi. It&amp;rsquo;s being maintained since 2021.
+libx86 Link to heading libx86 is a small library in x86_64 assembly that I wrote during my read of Low Level Programming by Igor Zhirkov. It is a simple include file which provides minimal yet useful functionality while working with assembly.</description>
+    </item>
+    
     <item>
       <title>Contact</title>
       <link>https://rdseed.in/contact/</link>
       <pubDate>Fri, 17 Feb 2023 12:32:07 +0530</pubDate>
       
       <guid>https://rdseed.in/contact/</guid>
-      <description>You can email me at sysgrammer@protonmail.com</description>
+      <description>You can email me at sysgrammer@protonmail.com.</description>
     </item>
     
     <item>
@@ -43,8 +62,8 @@ Check out my github! Thanks for reading this. See ya&amp;rsquo; around.</descrip
       <pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://rdseed.in/about/</guid>
-      <description>Hi, I&amp;rsquo;m a humongous bro. Asking questions and seems like I know more than I do because, I&amp;rsquo;m good at calculating stuff. Basically, what people would take as a sign of knowledge is actually putting together the obvious.
-A friend describing me </description>
+      <description>I&amp;rsquo;m Amritpal Singh, a soon-to-be to be Computer Science student. My interests vary from Computers to Photography, Reading, Cooking and basically anything that interests me.
+In terms of the technical interests, I love working closesly with systems. I&amp;rsquo;m quite experienced in C and currently I&amp;rsquo;m trying to increase my repertoire with C++. Most of my notable projects are pinned on my github profile and listed on the Projects page.</description>
     </item>
     
   </channel>

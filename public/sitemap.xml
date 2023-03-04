@@ -2,11 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rdseed.in/</loc>
+    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://rdseed.in/notes/</loc>
+    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://rdseed.in/notes/notes/</loc>
+    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://rdseed.in/portfolio/</loc>
+    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://rdseed.in/contact/</loc>
     <lastmod>2023-02-17T12:32:07+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/</loc>
-    <lastmod>2023-02-06T13:47:47+05:30</lastmod>
   </url><url>
     <loc>https://rdseed.in/authors/amritpal-singh/</loc>
     <lastmod>2023-02-06T13:47:47+05:30</lastmod>

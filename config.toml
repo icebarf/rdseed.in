@@ -15,7 +15,7 @@ pygmentscodefencesguesssyntax = true
 [params]
   author = "Amritpal Singh"
   info = "Systems programmer and wannabe-wizard"
-  description = "Amrit's corner on the internet. Blog about computers, life, photography."
+  description = "Amrit's corner on the internet. Anything and everything about computers, life, photography."
   keywords = "blog,developer,personal"
   avatarurl = "images/khanda.png"
   #gravatar = "john.doe@example.com"
@@ -70,3 +70,11 @@ pygmentscodefencesguesssyntax = true
   name = "Contact"
   weight = 3
   url  = "contact/"
+[[menu.main]]
+  name = "Documents"
+  weight = 4
+  url  = "notes/notes"
+[[menu.main]]
+  name = "Portfolio"
+  weight = 5
+  url  = "portfolio/"

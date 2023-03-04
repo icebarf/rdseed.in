@@ -6,6 +6,11 @@ aliases = ["about-us", "about-me"]
 author = "Amritpal Singh"
 +++
 
-Hi, I'm a humongous bro. Asking questions and seems like I know more than I do because, I'm good at calculating stuff. Basically, what people would take as a sign of knowledge is actually putting together the obvious.
+I'm Amritpal Singh, a soon-to-be to be Computer Science student.
+My interests vary from Computers to Photography, Reading,
+Cooking and basically anything that interests me.
 
-- A friend describing me
+In terms of the technical interests, I love working closesly with systems.
+I'm quite experienced in C and currently I'm trying to increase my repertoire
+with C++. Most of my notable projects are pinned on my github profile
+and listed on the [Projects]({{< ref "/portfolio" >}} "Portfolio") page.
