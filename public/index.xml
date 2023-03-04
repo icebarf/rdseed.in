@@ -22,8 +22,8 @@
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://rdseed.in/portfolio/</guid>
-      <description>dy-chip8-reborn Link to heading This is an interpreter/emulator for the Chip8 virtual machine written in the C programming language. It works with the development library SDL2 to provide graphics and audio support. This project has been archived in favor of my in-development based-chip8-pp project which uses C++.
-Forth86 Link to heading Forth86 is an interpreter for the FORTH Programming Language written in x86_64 assembly language. It depends on my libx86 project which provides a base for it.</description>
+      <description>dy-chip8-reborn Link to heading It is an interpreter/emulator for the Chip8 virtual machine written in the C programming language. It works with the development library SDL2 to provide graphics and audio support. This project is now archived in favor of my in-development project - based-chip8-pp, using C++.
+Forth86 Link to heading Forth86 is an interpreter for the FORTH Programming Language written in x86_64 assembly language. It depends on my libx86 project, which provides a base for it.</description>
     </item>
     
     <item>
