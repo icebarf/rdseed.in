@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Amrit&#39;s Corner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 06 Feb 2023 13:47:47 +0530</lastBuildDate><atom:link href="https://rdseed.in/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Mar 2023 15:06:33 +0530</lastBuildDate><atom:link href="https://rdseed.in/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What I&#39;ve been upto this month</title>
+      <link>https://rdseed.in/posts/feb_update_in_march/</link>
+      <pubDate>Sun, 05 Mar 2023 15:06:33 +0530</pubDate>
+      
+      <guid>https://rdseed.in/posts/feb_update_in_march/</guid>
+      <description>Hello there, It&amp;rsquo;s been a while since I updated my blog. Last week, I was working on refactoring Perfmode, which has gone pretty nicely. I&amp;rsquo;ve added a couple of features to it and somewhat improved the overall quality of the code. Moving on, I&amp;rsquo;ve now begun reading Ray Tracing in One Weekend. It seems like a good book for someone like me. I’ve read the first 3 chapters, containing the boilerplate information for the actual project.</description>
+    </item>
+    
     <item>
       <title>Realization</title>
       <link>https://rdseed.in/posts/realization/</link>

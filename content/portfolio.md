@@ -27,3 +27,11 @@ Perfmode is a fan/thermal policy control and keyboard LED backlight management
 utility. It is written in C and works by writing to files exposed by
 the Linux kernel module `asus-nb-wmi`. Perfmode has been under maintainenance
 since 2021 and will continue to do so.
+
+## [Telegram Channel to Discord Bridge](https://github.com/icebarf/tgchannel-discord-bridge)
+This is a bridge bot that links a public telegram channel to a discord channel.
+The bot interoperates with discord using [discord.py](https://discordpy.readthedocs.io/en/stable/)
+and telegram using [telethon](https://docs.telethon.dev/en/stable/).
+It's a specialised bot where public use was a secondary choice.
+Minimal care was taken to make this bot suitable for public use by hosting your own
+instance. This bridge is a result of a recreational activity turned into something useful for a discord server. It is currently being used in a server with ~4000 members whereby posting updates from 4 telegram channels to 3 discord channels.
