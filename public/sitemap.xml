@@ -1,58 +1,102 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://rdseed.in/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/authors/amritpal-singh/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/authors/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/categories/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/categories/meta/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/posts/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/tags/self/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/tags/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/posts/feb_update_in_march/</loc>
-    <lastmod>2023-03-05T15:06:33+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/notes/</loc>
-    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/notes/notes/</loc>
-    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/portfolio/</loc>
-    <lastmod>2023-03-04T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/contact/</loc>
-    <lastmod>2023-02-17T12:32:07+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/posts/realization/</loc>
-    <lastmod>2023-02-06T13:47:47+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/posts/hello-world/</loc>
-    <lastmod>2023-01-30T12:54:51+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/tags/meta/</loc>
-    <lastmod>2023-01-30T12:54:51+05:30</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/about/</loc>
-    <lastmod>2023-01-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://rdseed.in/series/</loc>
-  </url>
+    xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    
+        
+        <url>
+            <loc>https://rdseed.in/documents/</loc>
+            <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/projects/</loc>
+            <lastmod>2023-03-04T00:00:00+00:00</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/contact/</loc>
+            <lastmod>2023-02-17T12:32:07+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/authors/amrit/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/authors/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/categories/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/posts/hello-world/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/tags/meta/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/categories/meta/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/posts/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/tags/</loc>
+            <lastmod>2023-01-30T12:54:51+05:30</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/about/</loc>
+            <lastmod>2023-01-30T00:00:00+00:00</lastmod>
+        </url>
+        
+    
+        
+        <url>
+            <loc>https://rdseed.in/series/</loc>
+        </url>
+        
+    
 </urlset>

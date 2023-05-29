@@ -6,33 +6,25 @@
     <description>Recent content on Amrit&#39;s Corner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Mar 2023 15:06:33 +0530</lastBuildDate><atom:link href="https://rdseed.in/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Jan 2023 12:54:51 +0530</lastBuildDate><atom:link href="https://rdseed.in/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>What I&#39;ve been upto this month</title>
-      <link>https://rdseed.in/posts/feb_update_in_march/</link>
-      <pubDate>Sun, 05 Mar 2023 15:06:33 +0530</pubDate>
-      
-      <guid>https://rdseed.in/posts/feb_update_in_march/</guid>
-      <description>Hello there, It&amp;rsquo;s been a while since I updated my blog. Last week, I was working on refactoring Perfmode, which has gone pretty nicely. I&amp;rsquo;ve added a couple of features to it and somewhat improved the overall quality of the code. Moving on, I&amp;rsquo;ve now begun reading Ray Tracing in One Weekend. It seems like a good book for someone like me. I’ve read the first 3 chapters, containing the boilerplate information for the actual project.</description>
-    </item>
-    
-    <item>
-      <title>Notes</title>
-      <link>https://rdseed.in/notes/notes/</link>
+      <title>Documents</title>
+      <link>https://rdseed.in/documents/</link>
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://rdseed.in/notes/notes/</guid>
-      <description> PPM File Format for images </description>
+      <guid>https://rdseed.in/documents/</guid>
+      <description> PPM File Format for images Vectors (written to test LaTeX only) </description>
     </item>
     
     <item>
       <title>Projects</title>
-      <link>https://rdseed.in/portfolio/</link>
+      <link>https://rdseed.in/projects/</link>
       <pubDate>Sat, 04 Mar 2023 00:00:00 +0000</pubDate>
       
-      <guid>https://rdseed.in/portfolio/</guid>
-      <description>dy-chip8-reborn Link to heading It is an interpreter/emulator for the Chip8 virtual machine written in the C programming language. It works with the development library SDL2 to provide graphics and audio support. This project is now archived in favor of my in-development project - based-chip8-pp, using C++.
-Forth86 Link to heading Forth86 is an interpreter for the FORTH Programming Language written in x86_64 assembly language. It depends on my libx86 project, which provides a base for it.</description>
+      <guid>https://rdseed.in/projects/</guid>
+      <description>dy-chip8-reborn It is an interpreter/emulator for the Chip8 virtual machine written in the C programming language. It works with the development library SDL2 to provide graphics and audio support. This project is now archived
+Forth86 Forth86 is an interpreter for the FORTH Programming Language written in x86_64 assembly language. It depends on my libx86 project, which provides a base for it.
+libx86 libx86 is a small library in x86_64 assembly, written during my read of Low-Level Programming by Igor Zhirkov.</description>
     </item>
     
     <item>
@@ -45,24 +37,14 @@ Forth86 Link to heading Forth86 is an interpreter for the FORTH Programming Lang
     </item>
     
     <item>
-      <title>Realization</title>
-      <link>https://rdseed.in/posts/realization/</link>
-      <pubDate>Mon, 06 Feb 2023 13:47:47 +0530</pubDate>
-      
-      <guid>https://rdseed.in/posts/realization/</guid>
-      <description>I have been wondering why I suck at what I do, why I&amp;rsquo;m the least skilled among my skilled peers. After pondering on it for a while, I have come to realise - I simply do not do what I want, instead I chase after what I think I want which will lead me to become more skilled.
-But I realise that now as I see at my past self, who got me to the point where I am today, by doing what I wanted.</description>
-    </item>
-    
-    <item>
       <title>Hello World</title>
       <link>https://rdseed.in/posts/hello-world/</link>
       <pubDate>Mon, 30 Jan 2023 12:54:51 +0530</pubDate>
       
       <guid>https://rdseed.in/posts/hello-world/</guid>
-      <description>Hello to the internet!
+      <description>Hello internet!
 This is just a placeholder post that I made so that my Blog isn&amp;rsquo;t empty. Hope you don&amp;rsquo;t mind!
-Check out my github! Thanks for reading this. See ya&amp;rsquo; around.</description>
+Check out my github! Thanks for reading.</description>
     </item>
     
     <item>
@@ -71,9 +53,9 @@ Check out my github! Thanks for reading this. See ya&amp;rsquo; around.</descrip
       <pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate>
       
       <guid>https://rdseed.in/about/</guid>
-      <description>I&amp;rsquo;m Amritpal Singh, a soon-to-be Computer Science student. My interests vary from Computers to Photography, Reading, Cooking, and anything that interests me.
-I&amp;rsquo;m a newbie programmer and I have a taste for learning new things about computer systems and programming techniques.
-In terms of technical interests, I love working closely with systems. I&amp;rsquo;m quite experienced in C and currently, I&amp;rsquo;m trying to add C++ to my repertoire as of early-2023. I still have not found my niche in the systems industry and that is why I always try to dip my toes in the various sub-fields.</description>
+      <description>I&amp;rsquo;m Amrit, I consider myself a student of science. My interests vary from Computers to Photography, Reading, Cooking, and anything that interests me.
+I&amp;rsquo;m a programmer and I have a taste for learning new things about computer systems and programming techniques.
+In terms of technical interests, I love working closely with systems. Most of my notable projects are listed on the Projects page.</description>
     </item>
     
   </channel>

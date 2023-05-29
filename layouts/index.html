@@ -1,0 +1,91 @@
+{{ define "main" }}
+
+<h1>About</h1>
+
+<p>
+My corner on the internet.  <a href="about/">(more)</a>
+</p>
+
+<h1>Latest posts</h1>
+
+<div class="posts-list">
+{{ with .Site.GetPage "/posts" }}
+    {{ range first 3 (sort .Data.Pages "Date" "desc" (where .Pages ".Params.private" "!=" true))}}
+        <div class="post">
+            <p>
+                <div class="date">{{ .PublishDate.Format "Jan. 2, 2006" }}</div>
+                <h1><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
+                {{ .Summary }}
+            </p>
+        </div>    
+    {{ end }}
+{{ end }}
+</div>
+
+
+<h1>My Projects</h1>
+
+<div class="projects-list">
+{{ with .Site.GetPage "/projects"}}
+    <div class="project-list">
+        <p>{{ .TableOfContents }}</p>
+    </div>
+{{ end }}
+</div>
+
+
+<h1>Documents</h1>
+
+<div class="documents-list">
+{{ with .Site.GetPage "/documents" }}
+    <p>{{.TableOfContents}}</p>
+{{ end }}
+</div>
+<div class="documents-full">
+    <p>All documents <a href="/documents">here.</a></p>
+</div>
+
+
+<h1>All Pages</h1>
+
+<div class="page-list">
+<!-- {{range $page := .Site.RegularPages}}
+    <p><a href="{{.Permalink}}">{{.Title}}</a></p>
+{{end}} -->
+<ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/posts">Blog</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li><a href="/documents">Documents</a></li>
+    <li><a href="/projects">Projects</a></li>
+</ul>
+</div>
+
+<h1>Extra</h1>
+<div class="sources">
+    <ul>
+    <li>Website <a href="https://github.com/icebarf/rdseed.in">Sources</a></li>
+    <li>Theme: <a href="https://github.com/mrmierzejewski/hugo-theme-console">console</a></li>
+    </ul>
+</div>
+
+<!-- 
+<h1>Latest photos</h1>
+
+<div class="image-grid">
+{{ with .Site.GetPage "/photos" }}
+    {{ range first 3 (sort .Data.Pages "Date" "desc")}}
+        <a href="{{ .Permalink }}" title="{{ .Title }}">
+        {{ $image := .Page.Resources.GetMatch .Params.image }}
+        {{ with $image }}
+            {{ $thumb := .Resize "400x" }}
+            <img src="{{ $thumb.RelPermalink }}" alt="{{ .Title }}" class="img-responsive">
+        {{end}}
+        </a>
+    {{ end }}
+{{ end }}
+</div> -->
+
+<!-- this end tag is for the main -->
+
+{{ end }}
