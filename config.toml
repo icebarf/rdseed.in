@@ -1,4 +1,4 @@
-baseurl = "https://rdseed.in"
+baseurl = "https://rdseed.in/"
 title = "Amrit's Corner"
 #theme = "hugo-coder"
 theme = "hugo-theme-console"
