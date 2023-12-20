@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Icebarf on Ice&#39;s Corner</title>
+    <link>https://rdseed.in/authors/icebarf/</link>
+    <description>Recent content in Icebarf on Ice&#39;s Corner</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 17 Feb 2023 09:07:45 +0530</lastBuildDate>
+    <atom:link href="https://rdseed.in/authors/icebarf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A look at ungetc, fseek and rewind.</title>
+      <link>https://rdseed.in/posts/a-look-at-ungetc-fseek-rewind/</link>
+      <pubDate>Fri, 17 Feb 2023 09:07:45 +0530</pubDate>
+      <guid>https://rdseed.in/posts/a-look-at-ungetc-fseek-rewind/</guid>
+      <description>Index Link to heading The case of a few bytes Results Why is this happening? A better way to do things Bitmap File header Device-Independent Bitmap Too Long didn&amp;rsquo;t read Footnotes The case of a few bytes Link to heading I&amp;rsquo;ve been working on a small hobby project/program of mine. It implements image rotation by some angle (in degrees). I chose the bitmap format to write back the image that was rotated, the input image is also expected to be a bitmap image.</description>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>https://rdseed.in/posts/hello-world/</link>
+      <pubDate>Mon, 30 Jan 2023 12:54:51 +0530</pubDate>
+      <guid>https://rdseed.in/posts/hello-world/</guid>
+      <description>Hello to the internet!&#xA;This is just a placeholder post that I made so that my Blog isn&amp;rsquo;t empty.&#xA;Check out my github! Thanks for reading this. See ya&amp;rsquo; around.</description>
+    </item>
+  </channel>
+</rss>

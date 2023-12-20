@@ -1,5 +1,5 @@
 baseurl = "https://rdseed.in"
-title = "Amrit's Corner"
+title = "Ice's Corner"
 theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
@@ -13,11 +13,11 @@ pygmentscodefencesguesssyntax = true
 #disqusShortname = "yourdiscussshortname"
 
 [params]
-  author = "Amritpal Singh"
-  info = "Systems programmer and wannabe-wizard"
-  description = "Amrit's corner on the internet. Anything and everything about computers, life, photography."
+  author = "Amrit Handa"
+  info = "Programmer and wannabe-wizard"
+  description = "Amrit's corner on the internet. Anything about my journey through computers and life."
   keywords = "blog,developer,personal"
-  avatarurl = "images/khanda.png"
+  avatarurl = "images/stay_hydrated.png"
   #gravatar = "john.doe@example.com"
 
   # favicon_32 = "/image/favicon-32x32.png"
@@ -51,11 +51,10 @@ pygmentscodefencesguesssyntax = true
 #  icon = "fa fa-gitlab fa-2x"
 #  weight = 2
 #  url = "https://gitlab.com/johndoe/"
-[[params.social]]
-  name = "Twitter"
-  icon = "fa fa-twitter fa-2x"
-  weight = 1
-  url = "https://twitter.com/icebarf2/"
+#[[params.social]]
+#  name = "Twitter"
+#  icon = "fa fa-twitter fa-2x"
+#  weight = 1
 
 # Menu links
 [[menu.main]]
