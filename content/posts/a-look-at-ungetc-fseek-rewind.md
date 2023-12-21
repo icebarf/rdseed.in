@@ -338,6 +338,7 @@ If you're parsing bitmap images and want to only support the most common sub-for
 _and remember,_ always minimize the number of reads or poking with the file stream.
 
 Please email me if you wish to discuss these results with me, I would be delighted for any kind of feedback.
+This is mostly a study based on my specific case with a better approach highlighted above.
 
 ## Footnotes
 

@@ -7,11 +7,10 @@ author = "Icebarf"
 +++
 
 I'm Amrit, a computer science student and a hobbyist programmmer.
-My interests vary from Computers to Photography, Reading, and learning
- new languages.
+My interests vary from Computers to Photography, Reading, and Learning
+new languages.
 
-In terms of technical interests, I love working closely with systems.
-I'm have experience in working with C, C++, Python, x86_64.
-I have not found my niche in the industry and 
-try to delve into various things. Most of my notable projects are pinned on my 
+I love working closely with systems, with experience in C, C++, Python, and x86_64.
+I don't have something that I particularly love, so I try to involve myself in various projects.
+Most of my notable projects are pinned on my 
 GitHub profile and listed on the [Projects]({{< ref "/portfolio" >}} "Portfolio") page.
